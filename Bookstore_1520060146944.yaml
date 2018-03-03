@@ -1,0 +1,90 @@
+definitions:
+  BookSchema:
+    properties:
+      author:
+        default: Leon Stigter
+        type: string
+      description:
+        default: A new cool book on APIs
+        type: string
+      price:
+        default: 29.95
+        type: number
+      title:
+        default: My new book
+        type: string
+    type: object
+  GiveNewSchemaNameHere:
+    properties:
+      internalID:
+        default: 1234AAX
+        type: string
+      title:
+        default: My new book
+        type: string
+    type: object
+info:
+  title: Bookstore
+  version: 1.0.0
+  x-lastModified: Feb 16, 2018 18:29PM PST
+paths:
+  /books/{id}:
+    get:
+      operationId: getBooks_id
+      parameters:
+      - default: pc
+        description: ""
+        format: ""
+        in: query
+        name: device
+        required: false
+        type: string
+      - description: ""
+        format: ""
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success response
+          schema:
+            $ref: '#/definitions/BookSchema'
+    post:
+      consumes:
+      - application/json
+      operationId: postBooks_id
+      parameters:
+      - description: ""
+        format: ""
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ""
+        in: body
+        name: body
+        schema:
+          $ref: '#/definitions/BookSchema'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success response
+          examples:
+            application/json:
+              internalID: 1234AAX
+              title: My new book
+          schema:
+            $ref: '#/definitions/GiveNewSchemaNameHere'
+        "404":
+          description: Resource Not found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+swagger: "2.0"
